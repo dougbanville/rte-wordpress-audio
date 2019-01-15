@@ -1,0 +1,24 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+ /* mixed playlist player */
+#mixed {
+    background-color: #036;
+  }
+  /* make cover image fill container width */
+  #mixed.is-audio .fp-player {
+    background-size: cover;          /* default: contain */
+    background-position: top center; /* default: center */
+  }
+   
+  /* icecast player */
+  .flowplayer.is-audio-only {
+    max-width: 400px;
+    background-color: #eee;
+  }
+  /* keep this controlbar-only player always at same height */
+  .flowplayer.is-audio-only.is-small,
+  .flowplayer.is-audio-only.is-tiny {
+    font-size: 16px;
+  }
