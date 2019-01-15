@@ -1,10 +1,4 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
-use Kreait\Firebase\Factory;
-use Kreait\Firebase\ServiceAccount;
-
-
-
 /**
  * The plugin bootstrap file
  *
@@ -124,7 +118,7 @@ $audio =file_get_contents("https://radio-a8e0f.firebaseio.com/audioclips/".$audi
 $audioClip = json_decode($audio);
 $audioUrl = $audioClip->awsaudio;
 $picture = $audioClip->picture;
-$title = $audioClip->title;
+$clip_title = $audioClip->title;
 
 wp_localize_script('rte-radio-clip-public', 'rte_vars', array(
     'audio' => __($audioUrl, ''),
@@ -135,10 +129,10 @@ wp_localize_script('rte-radio-clip-public', 'rte_vars', array(
 wp_enqueue_script('rte-radio-clip-public');
 
 function headTags(){
-    global $picture, $wp, $audioId;
+    global $picture, $wp, $audioId, $clip_title;
     $current_url = home_url( add_query_arg( array(), $wp->request ) );
     $current_url = $current_url."?audioId=$audioId";
-    echo '<meta property="og:title" content="'.$title.'" />
+    echo '<meta property="og:title" content="'.$clip_title.'" />
     <meta property="og:type" content="audio/mpeg" />
     <meta property="og:url" content="'.$current_url.'" />
     <meta property="og:image" content="'.$picture.'" />';
@@ -148,7 +142,7 @@ add_action('wp_head',"headTags");
 
 function rte_clip($atts)
 {
-    global $audioUrl;
+    global $audioUrl, $clip_title;
     
     $a = shortcode_atts(array(
         'id' => 'My Id here',
